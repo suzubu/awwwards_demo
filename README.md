@@ -8,7 +8,7 @@ Zentry is a showcase front-end built to demonstrate narrative-driven UI using Re
 
 ## 🖼 Preview
 
-![App Preview](media/preview.gif)
+![App Preview](media/zentry-clone-demo.gif)
 
 
 ---
