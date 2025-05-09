@@ -22,7 +22,7 @@ These instructions will get your project running locally.
 git clone https://github.com/suzubu/zentry-clone-showcase.git
 
 # 2. Navigate into the project folder
-cd zentry-clone
+cd zentry-clone-showcase
 
 # 3. Install dependencies (if applicable)
 npm install
