@@ -1,4 +1,4 @@
-# 🌀 Zentry Landing Page • Showcase
+# 🌀 Zentry Landing Page - Showcase
 
 > An immersive, scroll-reactive concept site blending narrative, animation, and interactivity in a multiversal web experience.
 
@@ -19,7 +19,7 @@ These instructions will get your project running locally.
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/yourname/zentry-clone.git
+git clone https://github.com/suzubu/zentry-clone-showcase.git
 
 # 2. Navigate into the project folder
 cd zentry-clone
