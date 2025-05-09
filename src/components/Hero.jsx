@@ -1,3 +1,9 @@
+// === [ Hero Section ] ===
+// Fullscreen hero with animated video transitions and scroll-driven clipping effect.
+// - Plays background video with GSAP-based transitions
+// - Includes a "mini" video that expands on click
+// - Includes loading animation and animated headline
+
 import { React, useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import { TiLocationArrow } from "react-icons/ti";
@@ -7,6 +13,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 gsap.registerPlugin(ScrollTrigger);
 
+// Functional component definition
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [hasClicked, setHasClicked] = useState(false);
@@ -15,6 +22,7 @@ const Hero = () => {
 
   const totalVideos = 4;
   const nextVideoRef = useRef(null);
+  // Tracks how many video elements have finished loading
   const handleVideoLoad = () => {
     setLoadedVideos((prev) => prev + 1);
   };
@@ -26,13 +34,14 @@ const Hero = () => {
     setCurrentIndex(upcomingVideoIndex);
   };
 
+  // Remove loading screen after all videos (except one) have loaded
   useEffect(() => {
     if (loadedVideos === totalVideos - 1) {
       setIsLoading(false);
     }
   }, [loadedVideos]);
 
-  //   video transition animation
+  // Play scale/transition animation when mini video is clicked
   useGSAP(
     () => {
       if (hasClicked) {
@@ -57,14 +66,14 @@ const Hero = () => {
     { dependencies: [currentIndex], revertOnUpdate: true }
   );
 
-  //   scroll animation
+  // Apply scroll-triggered clip-path animation to the main video frame
   useGSAP(() => {
     gsap.set("#video-frame", {
       clipPath: "polygon(14% 0%, 72% 0%, 90% 90%, 0% 100%)",
       borderRadius: "0 0 40% 10%",
     });
     gsap.from("#video-frame", {
-      clipPath: "polygon(0% 0%, 100% 0%, 100% 1000%, 0% 100%)",
+      clipPath: "polygon(0% 0%, 100% 0%, 1000% 100%, 0% 100%)",
       borderRadius: "0 0 0 0",
       ease: "power1.inOut",
       scrollTrigger: {
@@ -79,8 +88,8 @@ const Hero = () => {
   const getVideoSrc = (index) => `videos/hero-${index}.mp4`;
 
   return (
-    //loading animation
     <div className="relative h-dvh w-screen overflow-x-hidden">
+      {/* Loading animation overlay shown until most videos load */}
       {isLoading && (
         <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
           <div className="three-body">
@@ -90,11 +99,13 @@ const Hero = () => {
           </div>
         </div>
       )}
+      {/* Main video container with layered layout */}
       <div
         id="video-frame"
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
       >
         <div>
+          {/* Clickable small video preview used to trigger transition */}
           <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
             {/* small video */}
             <div
@@ -112,7 +123,7 @@ const Hero = () => {
               />
             </div>
           </div>
-          {/* background video */}
+          {/* Upcoming video that expands in transition (initially hidden) */}
           <video
             ref={nextVideoRef}
             src={getVideoSrc(currentIndex)}
@@ -122,6 +133,7 @@ const Hero = () => {
             className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
             onLoadedData={handleVideoLoad}
           />
+          {/* Background looping video */}
           <video
             src={getVideoSrc(
               currentIndex === totalVideos - 1 ? 1 : currentIndex
@@ -133,9 +145,11 @@ const Hero = () => {
             onLoadedData={handleVideoLoad}
           />
         </div>
+        {/* Animated hero headings and call-to-action content */}
         <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
           G<b>a</b>ming
         </h1>
+        {/* Animated hero headings and call-to-action content */}
         <div className="absolute left-0 top-0 z-40 size-full">
           <div className="mt-24 px-5 sm:px-10">
             <h1 className="special-font hero-heading text-blue-100">
@@ -153,6 +167,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      {/* Animated hero headings and call-to-action content */}
       <h1 className="special-font hero-heading absolute bottom-5 right-5 text-black">
         G<b>a</b>ming
       </h1>
